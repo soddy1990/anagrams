@@ -55,9 +55,14 @@ vector<string> anagrams(vector<string>& strs) {
 	vector<Pair> work;
 	int n = strs.size();
 	vector<string> re;
+	int null_str = 0;
 
 	for(int i = 0; i < n; i++){
 		int strn = strs[i].size();
+		if(strn == 0){
+			null_str++;
+			continue;
+		}
 		string temp;
 		int count[26];
 		for(int k = 0; k<26; k++){
@@ -95,6 +100,11 @@ vector<string> anagrams(vector<string>& strs) {
 			}
 			start = i;
 			last = work[i].first;
+		}
+	}
+	if(null_str != 0){
+		for(int i = 0; i<null_str; i++){
+			re.push_back("");
 		}
 	}
 
