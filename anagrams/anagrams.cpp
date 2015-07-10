@@ -7,31 +7,8 @@ using namespace std;
 typedef pair<string, string> Pair;
 
 bool mycompare(const Pair &a, const Pair &b){
-	int i = 0;
-	while(i<(int)a.first.length() && i<(int)b.first.length()){
-		if(a.first.at(i) == b.first.at(i)){
-			i++;
-			continue;
-		}
-		return a.first.at(i) < b.first.at(i);
-	}
-	return a.first.length()<b.first.length();
+	return a.first.compare(b.first)<0;
 }
-
-bool myStrEqual(const string &a, const string &b){
-	if(a.length() != b.length())
-		return false;
-	int i = 0;
-	while(i<(int)a.length()){
-		if(a.at(i) != b.at(i)){
-			break;
-		}
-		i++;
-	}
-
-	return i == a.length();
-}
-
 
 vector<string> anagrams(vector<string>& strs) {
 
@@ -84,7 +61,7 @@ vector<string> anagrams(vector<string>& strs) {
 	string last = work[0].first;
 	int start = 0;
 	for(int i = 1; i<work.size(); i++){
-		if(myStrEqual(work[i].first,last)){
+		if(!work[i].first.compare(last)){
 			continue;
 		}else{
 			if(i-start > 1){
@@ -96,7 +73,7 @@ vector<string> anagrams(vector<string>& strs) {
 			last = work[i].first;
 		}
 	}
-	if(myStrEqual(work[work.size()-1].first,last)){
+	if(!work[work.size()-1].first.compare(last)){
 		if(work.size()-start > 1){
 			for(int j = start; j<work.size(); j++){
 				re.push_back(work[j].second);
