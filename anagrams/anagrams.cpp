@@ -46,15 +46,19 @@ bool myStrEqual(const string &a, const string &b){
 		}
 		i++;
 	}
-	
+
 	return i == a.length();
 }
 
 
 vector<string> anagrams(vector<string>& strs) {
+
 	vector<Pair> work;
 	int n = strs.size();
 	vector<string> re;
+	if(n <= 1){
+		return re;
+	}
 	int null_str = 0;
 
 	for(int i = 0; i < n; i++){
@@ -86,6 +90,14 @@ vector<string> anagrams(vector<string>& strs) {
 		mypair.second = strs[i];
 		work.push_back(mypair);
 	}
+	if(null_str != 0){
+		for(int i = 0; i<null_str; i++){
+			Pair mypair;
+			mypair.first = "";
+			mypair.second = "";
+			work.push_back(mypair);
+		}
+	}
 	sort(work.begin(), work.end(), mycompare);
 	string last = work[0].first;
 	int start = 0;
@@ -93,7 +105,7 @@ vector<string> anagrams(vector<string>& strs) {
 		if(myStrEqual(work[i].first,last)){
 			continue;
 		}else{
-			if(i-1-start >= 1){
+			if(i-start > 1){
 				for(int j = start; j<i; j++){
 					re.push_back(work[j].second);
 				}
@@ -102,9 +114,11 @@ vector<string> anagrams(vector<string>& strs) {
 			last = work[i].first;
 		}
 	}
-	if(null_str != 0){
-		for(int i = 0; i<null_str; i++){
-			re.push_back("");
+	if(myStrEqual(work[work.size()-1].first,last)){
+		if(work.size()-start > 1){
+			for(int j = start; j<work.size(); j++){
+				re.push_back(work[j].second);
+			}
 		}
 	}
 
@@ -118,23 +132,10 @@ void main(){
 	//itoa(a);
 	vector<string> strs;
 	string temp;
-	temp = "temp";
+	temp = "";
+	strs.push_back(temp);
 	strs.push_back(temp);
 
-	temp = "work";
-	strs.push_back(temp);
-
-	temp = "study";
-	strs.push_back(temp);
-
-	temp = "tmpe";
-	strs.push_back(temp);
-
-	temp = "kowr";
-	strs.push_back(temp);
-
-	temp = "dusty";
-	strs.push_back(temp);
 	vector<string> re = anagrams(strs);
 	for(int i = 0; i < re.size(); i++){
 		cout<<re[i].c_str()<<endl;
