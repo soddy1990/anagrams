@@ -6,24 +6,6 @@ using namespace std;
 
 typedef pair<string, string> Pair;
 
-string itoa(int a){
-	stack<int> work;
-	string re = "";
-	do{
-		int temp = a%10;
-		a /= 10;
-		work.push(temp);
-	}
-	while(a >= 1);
-	while(!work.empty()){
-		re += (work.top()+48);
-		work.pop();
-	}
-	//cout<<"this is working!\t"<<re.c_str()<<endl;
-	return re;
-}
-
-
 bool mycompare(const Pair &a, const Pair &b){
 	int i = 0;
 	while(i<(int)a.first.length() && i<(int)b.first.length()){
@@ -82,7 +64,7 @@ vector<string> anagrams(vector<string>& strs) {
 			}
 			temp += (k+97);
 			string count_str;
-			count_str = itoa(count[k]);
+			count_str = count[k];
 			temp += count_str;
 		}
 		Pair mypair;
